@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "*.js": "javascriptreact",
-    "iterator": "cpp"
+    "iterator": "cpp",
+    "iosfwd": "cpp"
   }
 }

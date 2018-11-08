@@ -9,38 +9,45 @@ const int DAYS_IN_COURSE_SIZE = 3;
 #pragma region Student
 class Student
 {
+private:
+  string studentId;
+  string firstName;
+  string lastName;
+  int numOfDaysToComplete[3];
+
 public:
-  ~Student() {}
+  ~Student(){};
   Student()
   {
     studentId = "";
     firstName = "";
     lastName = "";
-    numOfDaysToComplete = {0, 0, 0}; // ****
-  };
+    numOfDaysToComplete[0] = 0;
+    numOfDaysToComplete[1] = 0;
+    numOfDaysToComplete[2] = 0;
+  }
   Student(string StudentId, string FirstName, string LastName, int NumberOfDays0, int NumberOfDays1, int NumberOfDays2)
   {
     studentId = StudentId;
     firstName = FirstName;
     lastName = LastName;
-    numOfDaysToComplete[] = {NumberOfDays0, NumberOfDays1, NumberOfDays2};
-
-    return;
-  };
+    numOfDaysToComplete[0] = NumberOfDays0;
+    numOfDaysToComplete[1] = NumberOfDays1;
+    numOfDaysToComplete[2] = NumberOfDays2;
+  }
   void setStudentId(string StudentId) { studentId = StudentId; }
   void setFirstName(string FirstName) { firstName = FirstName; }
   void setLastName(string LastName) { lastName = LastName; }
-  void setNumOfDaysToComplete(int numberOfDays[]) { numOfDaysToComplete = numberOfDays; } // ****
+  void setNumOfDaysToComplete(int numberOfDays1, int numberOfDays2, int numberOfDays3)
+  {
+    numOfDaysToComplete[0] = numberOfDays1;
+    numOfDaysToComplete[1] = numberOfDays2;
+    numOfDaysToComplete[2] = numberOfDays3;
+  } // ****
   string getStudentId() { return studentId; }
   string getFirstName() { return firstName; }
   string getLastName() { return lastName; }
   int *getNumOfDaysToComplete() { return numOfDaysToComplete; } // ****
-
-private:
-  string studentId;
-  string firstName;
-  string lastName;
-  int numOfDaysToComplete;
 };
 #pragma endregion
 
@@ -49,14 +56,14 @@ class Roster
 {
 
 public:
-  void add(string studentID, string firstName, string lastName, int daysInCourseArray, string degree)
+  void add(string studentID, string firstName, string lastName, int NumberOfDays0, int NumberOfDays1, int NumberOfDays2)
   {
-    Student student;
-    student.setStudentId(studentID);
-    student.setFirstName(firstName);
-    student.setLastName(lastName);
-    student.setLastName(lastName);
-    student.setNumOfDaysToComplete(daysInCourseArray); // ****
+    Student *student = new Student();
+    student->setStudentId(studentID);
+    student->setFirstName(firstName);
+    student->setLastName(lastName);
+    student->setLastName(lastName);
+    student->setNumOfDaysToComplete(NumberOfDays0, NumberOfDays1, NumberOfDays2); // ****
 
     currentPosition += 1;
     classRosterArray[currentPosition] = student;
@@ -69,7 +76,7 @@ public:
 
     for (int i = 0; i < currentPosition; i += 1)
     {
-      if (classRosterArray[i].getStudentId() == studentId)
+      if (classRosterArray[i]->getStudentId() == studentId)
       {
         studentFound = true;
         studentIndex = i;
@@ -80,11 +87,11 @@ public:
     if (studentFound)
     {
       int sum = 0;
-      int daysInCourseArray = classRosterArray[studentIndex].getNumOfDaysToComplete(); // ****
+      int *daysInCourseArray = classRosterArray[studentIndex]->getNumOfDaysToComplete(); // ****
 
       for (int i = 0; i < DAYS_IN_COURSE_SIZE; i += 1)
       {
-        sum += daysInCourseArray; // ****
+        sum += daysInCourseArray[i]; // ****
       }
 
       int avg = sum / DAYS_IN_COURSE_SIZE;
@@ -100,7 +107,7 @@ public:
   }
 
 private:
-  Student classRosterArray[ROSTER_SIZE];
+  Student *classRosterArray[ROSTER_SIZE];
   int currentPosition = 0;
 };
 #pragma endregion
@@ -134,11 +141,12 @@ int main()
 
     // TODO: convert degree to enum and pass into pass Roster.add()
     classRoster.add(
-        singleStudentData[0],                                                                 // student id
-        singleStudentData[1],                                                                 // fname
-        singleStudentData[2],                                                                 // lname
-        {stoi(singleStudentData[5]), stoi(singleStudentData[6]), stoi(singleStudentData[7])}, // course 1,2,3 // ****
-        singleStudentData[8]                                                                  // degree
+        singleStudentData[0],       // student id
+        singleStudentData[1],       // fname
+        singleStudentData[2],       // lname
+        stoi(singleStudentData[5]), // course 1
+        stoi(singleStudentData[6]), // course 2
+        stoi(singleStudentData[7])  // course 3
     );
   } // END loop through studentData[]
 
