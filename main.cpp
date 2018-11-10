@@ -59,7 +59,7 @@ public:
   ~Roster() {}
   Roster()
   {
-    currentPosition = 0;
+    currentPosition = -1;
   }
   void add(string studentID, string firstName, string lastName, int NumberOfDays0, int NumberOfDays1, int NumberOfDays2)
   {
@@ -83,7 +83,7 @@ public:
     bool studentFound = false;
     int studentIndex = 0;
 
-    for (int i = 0; i < currentPosition; i += 1)
+    for (int i = 0; i < currentPosition + 1; i += 1)
     {
       if (classRosterArray[i]->getStudentId() == studentId)
       {
@@ -92,16 +92,14 @@ public:
       }
     }
 
-    std::cout << "Showing average days in course:" << endl;
+    cout << "Showing average days in course:" << endl;
     if (studentFound)
     {
       int sum = 0;
       int *daysInCourseArray = classRosterArray[studentIndex]->getNumOfDaysToComplete();
 
       for (int i = 0; i < DAYS_IN_COURSE_SIZE; i += 1)
-      {
         sum += daysInCourseArray[i];
-      }
 
       int avg = sum / DAYS_IN_COURSE_SIZE;
 
@@ -110,8 +108,8 @@ public:
     else
     {
       // expected: the above line should print a message saying such a student with this ID was not found.
-      std::cout << "Such a student with this ID was not found. 🤷‍♂️" << endl
-                << endl;
+      cout << "Such a student with this ID was not found. 🤷‍♂️" << endl
+           << endl;
     }
   }
 
@@ -159,7 +157,7 @@ int main()
     );
   } // END loop through studentData[]
 
-  classRoster.printAverageDaysInCourse("A3");
+  classRoster.printAverageDaysInCourse("A2");
 
   return 0;
 }

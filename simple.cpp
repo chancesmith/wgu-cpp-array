@@ -46,17 +46,13 @@ class Roster
 
 public:
   ~Roster() {}
-  Roster()
-  {
-    currentPosition = 0;
-  }
+  Roster() { currentPosition = -1; }
   void add(string studentID, int NumberOfDays0, int NumberOfDays1, int NumberOfDays2)
   {
     Student *student;
     student = new Student();
     student->setStudentId(studentID);
     student->setNumOfDaysToComplete(NumberOfDays0, NumberOfDays1, NumberOfDays2);
-
     currentPosition += 1;
     classRosterArray[currentPosition] = student;
   }
@@ -66,8 +62,9 @@ public:
     int studentIndex = 0;
 
     // loop through students
-    for (int i = 0; i < currentPosition; i += 1)
+    for (int i = 0; i < currentPosition + 1; i += 1)
     {
+      std::cout << "student:" << classRosterArray[i]->getStudentId() << " >> " << studentId << '\n';
       if (classRosterArray[i]->getStudentId() == studentId)
       {
         studentFound = true;
@@ -75,21 +72,18 @@ public:
       }
     }
 
-    std::cout << "Showing average days in course:" << endl;
+    cout << "Showing average days in course:" << endl;
     if (studentFound)
     {
       int sum = 0;
       int *daysInCourseArray = classRosterArray[studentIndex]->getNumOfDaysToComplete();
 
       for (int i = 0; i < DAYS_IN_COURSE_SIZE; i += 1)
-      {
         sum += daysInCourseArray[i];
-      }
 
       int avg = sum / DAYS_IN_COURSE_SIZE;
 
       cout << "Student " << studentId << ": averages " << avg << " days in course" << endl;
-      delete daysInCourseArray; // ???
     }
     else
     {
@@ -106,8 +100,6 @@ private:
 
 int main()
 {
-
-  // Create an instance of the Roster class called classRoster.
   Roster classRoster;
 
   classRoster.add("A1", 30, 35, 40);

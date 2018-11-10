@@ -32,6 +32,7 @@ public:
     numOfDaysToComplete[1] = numberOfDays2;
     numOfDaysToComplete[2] = numberOfDays3;
   }
+  int age = 2;
   int *getNumOfDaysToComplete() { return numOfDaysToComplete; }
 };
 #pragma endregion
@@ -42,26 +43,28 @@ class Roster
 
 public:
   ~Roster() {}
-  Roster() { currentPosition = 0; }
+  Roster() { currentPosition = -1; }
   void add(int NumberOfDays0, int NumberOfDays1, int NumberOfDays2)
   {
     Student *student;
     student = new Student();
     student->setNumOfDaysToComplete(NumberOfDays0, NumberOfDays1, NumberOfDays2);
     currentPosition += 1;
+
     classRosterArray[currentPosition] = student;
   }
   void printAverageDaysInCourse()
   {
     cout << "Showing all student average days in course:" << endl;
     // loop through students
-    for (int i = 0; i < currentPosition; i += 1)
+    for (int i = 0; i < currentPosition + 1; i += 1)
     {
       int sum = 0;
       int *daysInCourseArray = classRosterArray[i]->getNumOfDaysToComplete();
 
       for (int i = 0; i < DAYS_IN_COURSE_SIZE; i += 1)
         sum += daysInCourseArray[i];
+      // cout << daysInCourseArray[i] << endl;
 
       int avg = sum / DAYS_IN_COURSE_SIZE;
       cout << "Student: averages " << avg << " days in course" << endl;
