@@ -2,6 +2,8 @@
   "files.associations": {
     "*.js": "javascriptreact",
     "iterator": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "string": "cpp",
+    "iostream": "cpp"
   }
 }
